@@ -1,0 +1,119 @@
+{% extends "general/base.html" %}
+{% block title %} Список заявок {% endblock%}
+{% load static %}
+
+{% block content %}
+<div class="request-type-wrap" data-preload="false">
+  <h2 data-slider="auctions" class="slides"></h2>
+{#  <h2 class="unactive-title slides" data-slider="tenders">Тендеры</h2>#}
+</div>
+<div class="list-actions-wrap">
+  <div class="empty-action">
+
+  </div>
+{% if perms.auction.add_auction and request.user.company %}
+  <a href="{% url 'create_trade_offer' %}">
+    <button type="button" name="button" class="main-list-btn">Добавить заявку</button>
+  </a>
+{% endif %}
+  <div class="filter-wrap">
+    <form class="search">
+      <div type="text" name="search" id="search_input" class="search-circle">
+        <input type="text" name="polymer_shortcode" placeholder="Введите марку полимера">
+        <select class="" name="polymer_type">
+                <option value="">Выберите тип полимера</option>
+            {% for type in polymers_types %}}
+                 <option value="{{ type.id }}">{{ type.name }}</option>
+             {% endfor %}
+        </select>
+        <select class="" name="polymer_plant">
+          <option value="">Выберите производителя</option>
+             {% for plant in polymers_plants %}}
+                 <option value="{{ plant.id }}">{{ plant.name }}</option>
+             {% endfor %}
+        </select>
+        <div class="check-wrap">
+          <label id="check-label-my" data-bool="">Показать мои торги</label>
+          <label id="check-label-all" class="active-check-label">Показать все торги</label>
+        </div>
+        <input type="submit" name="" value="Искать">
+      </div>
+      <button type="button" name="button" id="search_opener"></button>
+    </form>
+  </div>
+</div>
+
+  <div class="orders-wrap">
+    <div class="auction-btns">
+
+      <div class="titles-choosen-wrap">
+        <div class="choosen-title">
+          <span>Текущие торги</span>
+          <img src="{% static 'images/more.png' %}" alt="" width="12px" class="basis-list-opener">
+        </div>
+        <div class="titles">
+          <span data-id="all">Текущие</span>
+          <span data-id="active">Активные</span>
+          <span data-id="unactive">Планируемые</span>
+          <span data-id="archive">Архивные</span>
+        </div>
+      </div>
+
+      <button class="excel-download" data-file="Торги.xls" data-name="Торги" data-table="auctions">Загрузить</button>
+
+      <!-- <div class="btn-wrap">
+        <div class="large">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="medium">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="small">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div> -->
+    </div>
+      <table class="orders-table active-table scroll-table" id="auctions">
+        <thead>
+          <tr class="fixed-width title-tr">
+            <th>№ Торгов</th>
+            <th>Вид торгов</th>
+            <th>Полимер</th>
+            <th>Организация</th>
+            <th>Общий объем, т</th>
+            <th class="archive-hidden">Минимальная цена за тонну, руб</th>
+            <th>Способ оплаты</th>
+            <th>Базис отгрузки</th>
+            <th>Дата и время начала торгов</th>
+            <th>Дата и время окончания торгов</th>
+          </tr>
+        </thead>
+      </table>
+      <table class="orders-table" id="tenders">
+        <tr class="fixed-width title-tr">
+          <td>№ Торгов</td>
+          <td>Вид торгов</td>
+          <td>Товар</td>
+          <td>Организация</td>
+          <td>Общий объем, т</td>
+          <td>Рекомендуемая цена за тонну, руб</td>
+          <td>Способ оплаты</td>
+          <td>Базис отгрузки</td>
+          <td>Дата и время начала торгов</td>
+          <td>Дата и время окончания торгов</td>
+        </tr>
+      </table>
+  </div>
+  <script type="text/javascript" src="{% static 'js/main-files/main-ajax.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/requests-list/req-list.js' %}"></script>
+  <!-- <script type="text/javascript" src="{% static 'js/main-page/jquery.hscroll.js' %}"></script> -->
+{% endblock content %}

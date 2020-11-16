@@ -1,0 +1,286 @@
+{% extends "general/base.html" %}
+{% block title %} Информация о заявке {% endblock %}
+{% load static %}
+
+{% block content %}
+
+    <h2 id="{{ id }}" data-path="/auction/accept_participation_application" data-type="auction">Торги №{{ id }} -
+        Товар: {{ polymer_type }} {{ polymer_shortcode }} {{ polymer_plant }}</h2>
+    <div class="info-wrap">
+        <div class="request-info">
+            <h2>Информация о заявке</h2>
+            <div class="request-subwrap">
+                <div class="request-item">
+                    <strong>Вид торгов: &nbsp;</strong>
+                    <span>{{ type }}</span>
+                </div>
+                <div class="request-item">
+                    <strong>Тип торгов: &nbsp;</strong>
+                    <span>{{ level_name }}</span>
+                </div>
+                <div class="request-item">
+                    <strong>Продавец: &nbsp;</strong>
+                    <span> {{ seller__company_full_name }}
+                     {% if perms.authentication.can_view_all_data  %}
+                         <a href="/profile/{{ seller_id }}"> пользователь {{ seller_username }}</a>
+                     {% endif %}
+                    </span>
+                </div>
+{#                <div class="request-item">#}
+{#                    <strong>Условия поставки:&nbsp;</strong>#}
+{#                    <span> {{ shipment_condition }}</span>#}
+{#                </div>#}
+                <div class="request-item">
+                    <strong>Операция:&nbsp; </strong>
+                    <span> {{ trading_operation }}</span>
+                </div>
+{#                <div class="request-item">#}
+{#                    <strong>Тип грузоперевозки:&nbsp; </strong>#}
+{#                    <span> {{ shipment_method }}</span>#}
+{#                </div>#}
+                {% if polymer_plant %}
+                    <div class="request-item">
+                        <strong>Производитель:&nbsp; </strong>
+                        <span> {{ polymer_plant }}</span>
+                    </div>
+                {% endif %}
+                <div class="request-item">
+                    <strong>Базис отгрузки:&nbsp; </strong>
+                    <span>({{ shipment_condition }}) {{ storage_location }}</span>
+                </div>
+                <div class="request-item">
+                    <strong>Срок поставки:&nbsp; </strong>
+                    <span> {{ delivery }}</span>
+                </div>
+                {% if special_conditions %}
+                    <div class="request-item">
+                        <strong>Дополнительное условие торгов:&nbsp; </strong>
+                        <span> {{ special_conditions }}</span>
+                    </div>
+                {% endif %}
+                <div class="request-item">
+                    <strong>Дата добавления заявки:&nbsp; </strong>
+                    <span>{{ published_datetime|date:"H:i d.m.Y" }}</span>
+                </div>
+                <div class="request-item request-item-link">
+                    <a target="_blank" href="https://reference.kartli.ch/polymer/{{ polymer_id }}">
+                        Посмотреть свойства полимера
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        {% if level_name == 'Закрытая' and user_participation_status == 'Допущен' or level_name == 'Открытые торги' or perms.authentication.can_view_all_data or request.user.id == seller_id %}
+            <div class="request-info biddings-info">
+                <h2>Информация о лоте</h2>
+                <div class="request-subwrap">
+                    {% if lot_amount %}
+                        <div class="request-item">
+                            <strong>Количество лотов:&nbsp;</strong>
+                            <span id="lots_number">{{ lot_amount }} шт</span>
+                        </div>
+                    {% endif %}
+                    <div class="request-item">
+                        <strong>Объем 1 лота:&nbsp;</strong>
+                        <span id="lot_amount">{{ lot_size }} т</span>
+                    </div>
+                    {% if total_amount %}
+                        <div class="request-item">
+                            <strong>Общий объем:&nbsp; </strong>
+                            <span id="lot_total_amount"> {{ total_amount }} т</span>
+                        </div>
+                    {% endif %}
+                    {% if start_price_per_tone %}
+                        <div class="request-item">
+                            <strong>Минимальная цена за тонну{% if is_price_with_nds %}(c НДС){% else %}(без
+                                            НДС){% endif %}:&nbsp;</strong>
+                            <span id="lot_price">{{ start_price_per_tone }} руб</span>
+                        </div>
+                    {% endif %}
+                    {% if stop_price_per_tone %}
+                        <div class="request-item">
+                            <strong>Стоп цена за тонну{% if is_price_with_nds %}(c НДС){% else %}(без
+                                            НДС){% endif %}:&nbsp;</strong>
+                            <span id="lot_price">{{ stop_price_per_tone }} руб</span>
+                        </div>
+                    {% endif %}
+                    <div class="request-item">
+                        <strong>Способ оплаты:&nbsp;</strong>
+                        <span>{{ payment_term }}</span>
+                    </div>
+                    <div class="request-item">
+                        <strong>Шаг торгов:&nbsp;</strong>
+                        <span id="lot_step">{{ step }} руб</span>
+                    </div>
+                    <div class="request-item">
+                        <strong>Время фиксации сделки (сек):&nbsp;</strong>
+                        <span id="">{{ fixation_duration }} сек.</span>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    {% if auction_status == 'planning' %}
+        <h2 class="auction_before">
+            Торги будут доступны с {{ start_bidding|date:"d M Y H:i" }} до {{ end_bidding|date:"d M Y H:i" }}
+        </h2>
+
+        {% if request.user.id == seller_id %}
+            <button type="button" name="button" class="disable-session disable-auction">Отменить торги</button>
+            {% if level_name == 'Закрытая' %}
+                <ul class="requests-list">
+                    <div class="requests-list-title__wrap">
+                        <img src="{% static 'images/back.png' %}" alt="" width="32px" id="prev_block">
+                        <h2 data-index="1">
+                            Список заявок на участие
+                        </h2>
+                        <img src="{% static 'images/back.png' %}" alt="" width="32px" id="next_block">
+                    </div>
+                </ul>
+            {% endif %}
+        {% else %}
+            {% if level_name == 'Закрытая' %}
+                {% if user_participation_status == 'Допущен' %}
+                    <h2>Вы допущены к данным торгам</h2>
+                {% elif is_apply_for_participation %}
+                    {% if user_participation_status == 'В ожидании' %}
+                        <h2>Ваша компания подала заявку на участие</h2>
+                    {% elif user_participation_status == 'Не допущен' %}
+                        <h2>Вы не допущены к данным торгам</h2>
+                    {% else %}
+                        <button type="button" name="button" class="link-for-session" id="want_to_play_btn">
+                            Подать заявку на участие
+                        </button>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    {% endif %}
+
+    {% if auction_status == 'active' %}
+        {% if user_participation_status == 'Допущен' or perms.authentication.can_view_all_data or request.user.id == seller_id or level_name == 'Открытые торги' %}
+            <h2 class="auction_before">
+                Торги доступны с {{ start_bidding|date:"d M Y H:i" }} до {{ end_bidding|date:"d M Y H:i" }}
+            </h2>
+            <button class="link-for-session">Участвовать в торгах</button>
+        {% endif %}
+    {% endif %}
+    {% if auction_status == 'finished' or auction_status == 'finished_today' %}
+        <h2 class="auction_before">
+            Торги проводились с {{ start_bidding }} до {{ end_bidding }}
+        </h2>
+    {% endif %}
+    {% if deals %}
+        {% if perms.authentication.can_view_all_data  or  request.user.id == seller_id %}
+            <h2>Cделки</h2>
+        {% else %}
+            <h2>Ваши сделки</h2>
+        {% endif %}
+        <div class="orders-wrap">
+            <div class="auction-btns">
+              <div class="empty"></div>
+              <button class="excel-download" data-file="Сделки.xls" data-name="Сделки" data-table="deals">Загрузить</button>
+            </div>
+            <table class="orders-table active-table" id="deals">
+                <tr>
+                    <td>Количество лотов</td>
+                    <td>Цена, предложенная за тонну</td>
+                    <td>Время заключения сделки</td>
+                    <td>Компания</td>
+                    <td>ФИО клиента</td>
+                    <td>Email клиента</td>
+                    <td>Протокол торгов</td>
+
+                </tr>
+                {% for deal in deals %}
+                    <tr>
+                        <td>{{ deal.lot_amount }}</td>
+                        <td>{{ deal.bet_price_per_tone }}</td>
+                        <td>{{ deal.published_datetime|date:"Y.m.d H:i:s" }}</td>
+                        <td>
+                            {% if deal.client__company_full_name %}
+                                {% if perms.authentication.can_view_all_data or request.user.id == seller_id %}
+                                    <a href="/profile/company/{{ deal.client__company_id }}">{{ deal.client__company_full_name }}</a>
+                                {% else %}
+                                    {{ deal.client__company_full_name }}
+                                {% endif %}
+                            {% else %}
+                                Нет
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if deal.client_first_name or deal.client_last_name %}
+                                {% if perms.authentication.can_view_all_data or request.user.id == seller_id %}
+                                    <a href="/profile/{{ deal.client_id }}">  {{ deal.client_first_name }} {{ deal.client_last_name }} </a>
+                                {% else %}
+                                    {{ deal.client_first_name }} {{ deal.client_last_name }}
+                                {% endif %}
+                            {% else %}
+                                Нет
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if deal.client_email %}
+                                {{ deal.client_email }}
+                            {% else %}
+                                Нет
+                            {% endif %}
+                        </td>
+                        <td><h3><a href='/protocol/auction{{ id }}/deal{{ deal.id }}/'>Скачать</a></h3></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+    {% endif %}
+
+    {#    {% if auction_status == 'finished_today'%}#}
+    {% if deals %}
+        <h2>История ставок</h2>
+        <div class="orders-wrap">
+            <div class="auction-btns">
+              <div class="empty"></div>
+              <button class="excel-download" data-file="ИсторияСтавок.xls" data-name="ИсторияСтавок" data-table="bids">Загрузить</button>
+            </div>
+            <table class="orders-table active-table" id="bids">
+                <tr>
+                    <td>Количество лотов</td>
+                    <td>Цена, предложенная за тонну</td>
+                    <td>Время</td>
+                    {% if perms.authentication.can_view_all_data %}
+                        <td>Клиент</td>
+                    {% endif %}
+                </tr>
+                {% for bet in all_bets %}
+                    <tr>
+                        <td>{{ bet.lot_amount }}</td>
+                        <td>{{ bet.bet_price_per_tone }}</td>
+                        <td>{{ bet.published_datetime|date:"Y.m.d H:i:s" }}</td>
+                        {% if perms.authentication.can_view_all_data %}
+                            <td>
+                                <a href="/profile/{{ bet.client_id }}"> {{ bet.client_first_name }} {{ bet.client_last_name }}</a>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+    {% endif %}
+    {#    {% endif %}#}
+    {% if auction_status == 'notValid' %}
+        <h2>Торги недействительны!</h2>
+    {% endif %}
+
+    {% if auction_status == 'active' %}
+        <script type="text/javascript" src="{% static 'js/session-files/auctions/biddings.js' %}"></script>
+    {% endif %}
+
+    {% if auction_status == 'planning' and level_name == 'Закрытая' %}
+        <script type="text/javascript" src="{% static 'js/session-files/property-page/requests-list.js' %}"></script>
+    {% endif %}
+
+    <script type="text/javascript" src="{% static 'js/main-files/main-ajax.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/main-page/jquery.hscroll.js' %}"></script>
+{% endblock content %}

@@ -1,0 +1,348 @@
+<html>
+{% load static %}
+<head>
+    <title>Протокол торговли</title>
+    <meta charset="utf-8" content="">
+    <style>
+        @font-face {
+            font-family: Arial;
+            src: url(static/fonts/arial.ttf);
+        }
+        body {
+            font-family: Arial;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        main {
+          width: 600px;
+          height: 848.528137424px;
+        }
+        .header img {
+          width: 190px;
+          height: 60px;
+        }
+        .header .header-column {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          width: 100%;
+        }
+        .header tr td:last-child {
+          width: 100%;
+        }
+        .header tr td:last-child p {
+          font-size: 7pt;
+          text-align: right;
+          margin: 1px 0;
+          width: 100%;
+        }
+        h1 {
+          width: 100%;
+          text-align: center;
+          font-size: 10pt;
+        }
+        .title-table {
+          width: 100%;
+          margin-bottom: 10px;
+        }
+
+        .title-table td {
+          width: 50%;
+          font-size: 8pt;
+        }
+        .table_2 {
+          width: 100%;
+          margin-bottom: 25px;
+        }
+        .table_2 tr {
+          width: 100%;
+          font-size: 8pt;
+          vertical-align: baseline;
+         }
+         .table_2 tr.marg-tr {
+           height: 40px;
+         }
+        .table_2 tr td:first-child {
+          width: 50%;
+        }
+        .table_2 tr td:last-child {
+          width: 50%;
+        }
+        .qr-text {
+          font-size: 6pt;
+          line-height: 13px;
+        }
+        .table_1 {
+          width: 100%;
+          border: 1px solid #000;
+          border-collapse: collapse;
+          margin-bottom: 25px;
+        }
+        .table_1 tr {
+          border: 1px solid #000;
+        }
+        .table_1 td {
+          border: 1px solid #000;
+          font-size: 8pt;
+          text-align: center;
+        }
+        .table_3 {
+          width: 100%;
+        }
+        .table_3 caption {
+          font-size: 8pt;
+        }
+        .table_3 tr {
+          width: 100%;
+        }
+        .table_3 tr td {
+          width: 50%;
+        }
+        .table_3 tr td span {
+          display: block;
+          width: 100%;
+          font-size: 8pt;
+        }
+        .qr {
+          width: 120px;
+          height: 120px;
+        }
+        .table_3 tr td .fio {
+          width: 80%;
+          text-align: center;
+        }
+        .position {
+          margin: 5px 0;
+        }
+        .table_3 tr td .podpis {
+          margin: 5px 0;
+          width: 90%;
+          text-align: right;
+        }
+    </style>
+</head>
+<body>
+  <main>
+    <table class="header">
+      <tr>
+        <td>
+          <img src="{% static 'images/docx_logo.png' %}" alt="Example">
+        </td>
+        <td>
+          <p>TIN 1655202105</p>
+          <p>Box 5, 420107, Kazan, Russia</p>
+          <p>tel:  +7 (843) 202 26 26</p>
+          <p>e-mail: info@example.tyu</p>
+          <p>www.example.tyu</p>
+        </td>
+      </tr>
+    </table>
+<!--     <header>
+
+      <div class="header-column">
+        <p>TIN 1655202105</p>
+        <p>Box 5, 420107, Kazan, Russia</p>
+        <p>tel:  +7 (843) 202 26 26</p>
+        <p>e-mail: info@example.tyu</p>
+        <p>www.example.tyu</p>
+      </div>
+    </header> -->
+    <h1>ПРОТОКОЛ ТОРГОВ</h1>
+    <table class="title-table">
+      <tbody>
+        <tr>
+          <td>Дата торгов: {{ end_bidding|date:"d.m.Y" }}</td>
+          <td>Номер договора Продавца:</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>Сделка № {{ deal.id }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="table_2">
+      <tbody>
+        <tr>
+          <td>Оператор торгов: </td>
+          <td>{{ seller_company.full_name }}</td>
+        </tr>
+        <tr>
+          <td>Место проведения торгов в электронной форме: </td>
+          <td>Сайт в сети интернет <a target="_blank" href="https://vk.com/away.php?to=https%3A%2F%2Fwww.bidding.example.tyu&amp;cc_key=">https://bidding.example.tyu</a></td>
+        </tr>
+        <tr>
+          <td>Юридический адрес оператора: </td>
+          <td>{{ seller_company.legal_address }}</td>
+        </tr>
+        <tr>
+          <td>Почтовый адрес оператора: </td>
+          <td>{{ seller_company.mailing_address }}</td>
+        </tr>
+        <tr>
+          <td>Контактный телефон: </td>
+          <td>{{ seller_company.phone_number }}</td>
+        </tr>
+        <tr>
+          <td>ИНН/КПП: </td>
+          <td>{{ seller_company.inn }}</td>
+        </tr>
+        <tr>
+          <td>р/с: </td>
+          <td>{{ seller_company.sittlement_account }}</td>
+        </tr>
+        <tr>
+          <td>к/с: </td>
+          <td>{{ seller_company.correspondent_account }}</td>
+        </tr>
+        <tr class="marg-tr">
+          <td>БИК: </td>
+          <td>{{ seller_company.bik }}</td>
+        </tr>
+        <tr>
+          <td>Продавец: </td>
+          <td>{{ seller_company.short_name }}</td>
+        </tr>
+        <tr>
+          <td>Покупатель: </td>
+          <td>{{ client_company.short_name }}</td>
+        </tr>
+        <tr>
+          <td>Вид торгов: </td>
+          <td>{{ type }}</td>
+        </tr>
+        <tr>
+          <td>Наименование товара: </td>
+          <td>{{ polymer_type }} {{ polymer_shortcode }} {{ polymer_plant }}</td>
+        </tr>
+        <tr>
+          <td>Срок отгрузки: </td>
+          <td>{{ delivery }}</td>
+        </tr>
+        <tr>
+          <td>Особые условия: </td>
+          <td>{{ special_conditions }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="table_1">
+        <tbody class="calibre1">
+        <tr class="tr_">
+            <td class="td_6">№ сделки</td>
+            <td class="td_7">Время сделки, мск.</td>
+            <td class="td_8">Количество лотов, шт</td>
+            <td class="td_9">Размер лота, тн</td>
+            <td class="td_10">Объём сделки, тн</td>
+            <td class="td_11">Цена сделки, руб.{% if is_price_with_nds %}(c НДС){% else %}(без НДС){% endif %}</td>
+            <td class="td_12">Сумма сделки, руб.{% if is_price_with_nds %}(c НДС){% else %}(без НДС){% endif %}</td>
+        </tr>
+        <tr class="tr_1">
+            <td class="td_6"><p class="block_11" lang="en">{{ deal.id }}</p></td>
+            <td class="td_7"><p class="block_12" lang="en">{{ deal.published_datetime|date:"H:i:s" }}</p>
+                <p class="block_11" lang="en"></p></td>
+            <td class="td_8"><p class="block_11" lang="en">{{ deal.lot_amount }}</p></td>
+            <td class="td_9"><p class="block_11" lang="en">{{ lot_size }}</p></td>
+            <td class="td_10"><p class="block_11" lang="en">{{ deal.total_amount }}</p></td>
+            <td class="td_11"><p class="block_13" lang="en">{{ deal.bet_price_per_tone }}</p></td>
+            <td class="td_12"><p class="block_11" lang="en">{{ deal.total_price }}</p></td>
+        </tr>
+        </tbody>
+    </table>
+    <table class="qr-table">
+      <tbody>
+        <tr>
+          <td>
+            <span class="qr-text">
+             Примечание:<br>
+                1. Порядок заключения, обмена, исполнения Протокола торгов и Договора поставки регулируется разделом «Заключение и исполнение Договора по результатам Торгов» Правил работы на Аукционе.<br>
+                2. Условия формирования Цены определяются согласно международным правилам Incoterms®.<br>
+                3. Документы, связанные с работой на Аукционе, расположены по QR-коду и по ссылке: <a href="https://bidding.example.tyu/documents/">https://bidding.example.tyu/documents/</a><br>
+            </span>
+          </td>
+          <td>
+            <img src="{% static 'images/new_qr.png' %}" alt="qr код" width="20px" class="qr">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="table_3">
+      <caption>Подписи сторон:</caption>
+      <tbody>
+        <tr>
+          <td>
+            <span class="column-title">{{ client_company.short_name }}</span>
+            <span>Юр. адрес {{ client_company.legal_address }}</span>
+            <span>Почт. адрес {{ client_company.mailing_address }}</span>
+            <span>ИНН {{ client_company.inn }}</span>
+            <span>КПП {{ client_company.kpp }}</span>
+            <span>р/с {{ client_company.sittlement_account }}</span>
+            <span>к/с {{ client_company.correspondent_account }}</span>
+            <span>БИК {{ client_company.bik }}</span>
+            <span>Конт. тел. {{ client_company.phone_number }}</span>
+            <span>Факс {{ client_company.fax_number }}</span>
+            <span>E-mail {{ client_company.email }}</span>
+{#            <span class="position">*Должность*</span>#}
+            <span>_______________________________________</span>
+{#            <span class="fio">*ФИО*</span>#}
+            <span class="podpis">М.П.</span>
+          </td>
+          <td>
+            <span class="column-title">{{ seller_company.short_name }}</span>
+            <span>Юр. адрес {{ seller_company.legal_address }}</span>
+            <span>Почт. адрес {{ seller_company.mailing_address }}</span>
+            <span>ИНН {{ seller_company.inn }}</span>
+            <span>КПП {{ seller_company.kpp }}</span>
+            <span>р/с {{ seller_company.sittlement_account }}</span>
+            <span>к/с {{ seller_company.correspondent_account }}</span>
+            <span>БИК {{ seller_company.bik }}</span>
+            <span>Конт. тел. {{ seller_company.phone_number }}</span>
+            <span>Факс {{ seller_company.fax_number }}</span>
+            <span>E-mail {{ seller_company.email }}</span>
+{#            <span class="position">*Должность*</span>#}
+            <span>_______________________________________</span>
+{#            <span class="fio">*ФИО*</span>#}
+            <span class="podpis">М.П.</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+
+<!-- <div class="calibre" id="calibre_link-0">
+        <tr class="calibre2">
+            <td class="td_17"><p class="block_7">БИК <span lang="en">{{ client_company.bik }}</span></p></td>
+            <td class="td_16"><p class="block_7">БИК <span lang="en">{{ seller_company.bik }}</span></p></td>
+        </tr>
+        <tr class="calibre2">
+            <td class="td_17"><p class="block_7">Конт<span lang="en">. </span>тел<span
+                    lang="en">. {{ client_company.phone_number }}</span></p></td>
+            <td class="td_16"><p class="block_7">Конт<span lang="en">. </span>тел<span
+                    lang="en">. {{ seller_company.phone_number }}</span></p></td>
+        </tr>
+        <tr class="calibre2">
+            <td class="td_17"><p class="block_7">Факс<span lang="en">: {{ client_company.fax_number }}</span></p></td>
+            <td class="td_16"><p class="block_7">Факс<span lang="en">: {{ seller_company.fax_number }}</span></p></td>
+        </tr>
+        <tr class="calibre2">
+            <td class="td_17"><p class="block_7" lang="en"><span
+                    class="calibre4">E-mail: {{ client_company.email }}</span></p></td>
+            <td class="td_16"><p class="block_7" lang="en"><span
+                    class="calibre4">E-mail: {{ seller_company.email }}</span></p></td>
+        </tr>
+        <tr class="calibre2">
+            <td class="td_17"><p class="block_16" lang="en"></p></td>
+            <td class="td_16"><p class="block_4" lang="en"></p></td>
+        </tr>
+        <tr class="calibre2">
+            <td class="td_18"><p class="block_17">_____________________________________________________</p></td>
+            <td class="td_19"><p class="block_18">_________________________________________</p></td>
+        </tr>
+        </tbody>
+    </table>
+    <p class="block_19"></p>
+</div> -->
+
+</body>
+</html>

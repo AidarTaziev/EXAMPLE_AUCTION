@@ -1,0 +1,123 @@
+{% extends "general/base.html" %}
+{% block title %} Личный кабинет {% endblock%}
+{% load static %}
+{% block content %}
+
+<div class="profile-container alien">
+  <div class="user-info company-info">
+    <h2>
+      <img src="{% static 'images/alien_user.png' %}" width="64px" height="64px">
+      {{ company.short_name }}
+    </h2>
+    <div class="company-items">
+      <div class="">
+        <strong>Полное наименование компании:</strong>
+        <span>{{ company.full_name }}</span>
+      </div>
+
+      <div class="">
+        <strong>ИНН:</strong>
+        <span>{{ company.inn }}</span>
+      </div>
+
+      <div class="">
+        <strong>Специализация:</strong>
+        <span>{{ company.specialization }}</span>
+      </div>
+
+      <div class="">
+        <strong>Номер телефона:</strong>
+        <span>{{ company.phone_number }}</span>
+      </div>
+
+      <div class="">
+        <strong>Факс:</strong>
+        <span>{{ company.fax_number }}</span>
+      </div>
+
+      <div class="">
+        <strong>Почта:</strong>
+        <span>{{ company.email }}</span>
+      </div>
+
+      <div class="">
+        <strong>Банк:</strong>
+        <span>{{ company.bank_name }}</span>
+      </div>
+
+      <div class="">
+        <strong>КПП:</strong>
+        <span>{{ company.kpp }}</span>
+      </div>
+
+      <div class="">
+        <strong>ОГРН:</strong>
+        <span>{{ company.ogrn }}</span>
+      </div>
+
+      <div class="">
+        <strong>ОКАТО:</strong>
+        <span>{{ company.okato }}</span>
+      </div>
+
+      <div class="">
+        <strong>БИК:</strong>
+        <span>{{ company.bik }}</span>
+      </div>
+
+      <div class="">
+        <strong>К\с:</strong>
+        <span>{{ company.correspondent_account }}</span>
+      </div>
+
+      <div class="">
+        <strong>Р\с:</strong>
+        <span>{{ company.sittlement_account }}</span>
+      </div>
+
+      <div class="">
+        <strong>Юридический адрес:</strong>
+        <span>{{ company.legal_address }}</span>
+      </div>
+
+      <div class="">
+        <strong>Почтовый адрес:</strong>
+        <span>{{ company.mailing_address }}</span>
+      </div>
+    </div>
+
+
+    <button type="button" name="button" id="copyier">Скопировать все</button>
+  </div>
+  <div class="statistic-wrap">
+    <div class="statistic-title">
+      <h2>Статистика компании</h2>
+    </div>
+    <div class="statistic-box">
+      <div class="wins-count statistic-item">
+        <img src="{% static 'images/win.png' %}" width="64px" height="64px">
+        <h2>{{ statistic.deals }}</h2>
+        <span>совершенно сделок</span>
+      </div>
+      <div class="lost-count statistic-item">
+        <img src="{% static 'images/sad_face.png' %}" width="64px" height="64px">
+        <h2>{{ statistic.lost }}</h2>
+        <span>проиграно торгов</span>
+      </div>
+      <div class="played-count statistic-item">
+        <img src="{% static 'images/EXAMPLE_AUCTION.png' %}" width="64px" height="64px">
+        <h2>{{ statistic.all }}</h2>
+        <span>сыграно торгов</span>
+      </div>
+      <div class="saled-tons statistic-item">
+        <img src="{% static 'images/saled.png' %}" width="64px" height="64px">
+        <h2>0</h2>
+        <span>продано лотов</span>
+      </div>
+
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="{% static 'js/profile/alien_profile.js' %}">
+
+{% endblock content %}

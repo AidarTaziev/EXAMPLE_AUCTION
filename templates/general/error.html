@@ -1,0 +1,9 @@
+{% extends "general/base.html" %}
+{% block title %} Ошибка {% endblock %}
+{% load static %}
+{% block content %}
+    <div class="error-container">
+    <img src="{% static 'images/sad.png' %}" alt="" width="192px">
+    {% block error_data %} {% endblock error_data %}
+    </div>
+{% endblock content %}

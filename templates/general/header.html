@@ -1,0 +1,235 @@
+{% load static %}
+<div class="menu-wrap">
+    <nav>
+        <a href="{% url 'trade_offers' %}">
+            <li>Торги</li>
+        </a>
+        <a href="{% url 'documents' %}">
+            <li>Документы</li>
+        </a>
+    </nav>
+    <div class="profile-wrap">
+        <img src="{% static 'images/main-menu.png' %}" alt="menu" class="profile-image active-menu" data-id="menu"
+             width="25px">
+        <img src="{% static 'images/menu-black.png' %}" alt="menu" class="profile-image hidden-menu" width="25px"
+             data-id="menu">
+        <span class="mobile-menu-close">×</span>
+        <div class="profile-list">
+            <div class="profile-item mobile-active">
+                <img src="" alt="">
+                <a href="{% url 'trade_offers' %}">Торги</a>
+            </div>
+            <div class="profile-item mobile-active">
+                <img src="" alt="">
+                <a href="{% url 'documents' %}">Документы</a>
+            </div>
+            <div class="profile-item">
+                <img src="{% static 'images/kartli-icon.png' %}" class="gray-image">
+                <a href="https://example.tyu/ru/" target="_blank">Сайт компании</a>
+            </div>
+            <div class="profile-item">
+                <img src="{% static 'images/directory.png' %}" class="gray-image">
+                <a href="https://reference.example.tyu/" target="_blank">Справочник продукции</a>
+            </div>
+            <div class="profile-item">
+                <img src="{% static 'images/passport.png' %}" class="gray-image">
+                <a href="https://passport.example.tyu/" target="_blank">Паспорт</a>
+            </div>
+            <div class="profile-item">
+                <img src="{% static 'images/services.png' %}" class="gray-image">
+                <a href="https://personal.example.tyu/" target="_blank">Личный кабинет</a>
+            </div>
+            {% if not user.is_authenticated %}
+                <div class="profile-item">
+                    <img src="" alt="">
+                    <a href="/auth/">Вход</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="selfinfo-wrap profile-wrap">
+        <div class="img-wrap profile-image active-menu" data-id="man">
+            <img src="{% static 'images/main-man.png' %}" alt="menu">
+        </div>
+        <div class="img-wrap profile-image hidden-menu" data-id="man">
+            <img src="{% static 'images/man.png' %}" alt="menu">
+        </div>
+        <span class="mobile-menu-close">×</span>
+        {% if user.is_authenticated %}
+            <div class="selfinfo-frame profile-list">
+                <div class="name-row bordered">
+                    <span>{{ request.user.first_name }}</span><span>{{ request.user.last_name }}</span>
+                </div>
+                <div class="profile-item">
+                    <a href="/auth/logout">Выход</a>
+                </div>
+            </div>
+        {% else %}
+            <div class="selfinfo-frame profile-list">
+                <div class="name-row bordered">
+                    <span>Вы не авторизованы</span>
+                </div>
+                <div class="profile-item">
+                    <a href="/auth/">Авторизация</a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    <div class="selfinfo-wrap profile-wrap">
+        <div class="img-wrap profile-image active-menu" data-id="sber">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" viewBox="0 0 50 50" width="25px" height="25px">
+                <path d="M 33.539062 2.6503906 L 16 12.679688 L 8.2597656 8.25 C 7.7797656 8.74 7.3396875
+                          9.2590625 6.9296875 9.7890625 L 16 14.990234 L 35.759766 3.6796875 C 35.039766 3.2896875
+                          34.299062 2.9503906 33.539062 2.6503906 z M 38.830078 5.6191406 L 16 18.679688 L 5.1191406
+                          12.449219 C 4.7791406 13.019219 4.4694531 13.610938 4.1894531 14.210938 L 16 20.990234
+                          L 40.470703 6.9902344 C 39.950703 6.5102344 39.400078 6.0591406 38.830078 5.6191406 z M 42.75
+                          9.3808594 L 16 24.679688 L 3.0195312 17.240234 C 2.8095313 17.890234 2.64 18.560234 2.5 19.240234
+                          L 16 26.990234 L 43.960938 10.990234 C 43.580938 10.440234 43.18 9.9008594 42.75 9.3808594 z M
+                          45.716797 14 L 16 31 L 2.046875 23 C 2.030875 23.333 2 23.663 2 24 C 2 36.703 12.297 47 25 47
+                          C 37.703 47 48 36.703 48 24 C 48 20.416 47.179797 17.024 45.716797 14 z"/>
+            </svg>
+        </div>
+        <div class="img-wrap profile-image hidden-menu" data-id="sber">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="#ffffff" viewBox="0 0 50 50" width="25px" height="25px"
+                 style="background: #0EB757;
+                                                                                                                         border-radius: 100px;
+                                                                                                                         padding: 5px;">
+                <path d="M 33.539062 2.6503906 L 16 12.679688 L 8.2597656 8.25 C 7.7797656 8.74 7.3396875
+                        9.2590625 6.9296875 9.7890625 L 16 14.990234 L 35.759766 3.6796875 C 35.039766 3.2896875
+                        34.299062 2.9503906 33.539062 2.6503906 z M 38.830078 5.6191406 L 16 18.679688 L 5.1191406
+                        12.449219 C 4.7791406 13.019219 4.4694531 13.610938 4.1894531 14.210938 L 16 20.990234
+                        L 40.470703 6.9902344 C 39.950703 6.5102344 39.400078 6.0591406 38.830078 5.6191406 z M 42.75
+                        9.3808594 L 16 24.679688 L 3.0195312 17.240234 C 2.8095313 17.890234 2.64 18.560234 2.5 19.240234
+                        L 16 26.990234 L 43.960938 10.990234 C 43.580938 10.440234 43.18 9.9008594 42.75 9.3808594 z M
+                        45.716797 14 L 16 31 L 2.046875 23 C 2.030875 23.333 2 23.663 2 24 C 2 36.703 12.297 47 25 47
+                        C 37.703 47 48 36.703 48 24 C 48 20.416 47.179797 17.024 45.716797 14 z"/>
+            </svg>
+        </div>
+        <span class="mobile-menu-close">×</span>
+        {% if user.is_authenticated %}
+            {% if account_info %}
+                <div class="selfinfo-frame profile-list sberbank-list">
+                    <div class="name-row">
+                        {{ account_info.name }}
+                    </div>
+                    {% if account_info.offerSmartCredit and account_info.summOfferSmartCredit %}
+                        <div class="name-row bordered">
+                            <span>Предодобренный кредит Сбербанка:<span> {{ account_info.summOfferSmartCredit }} руб.</span></span>
+                        </div>
+                    {% elif not account_info.offerSmartCredit %}
+                        <div class="name-row bordered">
+                            <span>Предодобренный кредит Сбербанка:<span> 0 руб.</span></span>
+                        </div>
+                    {% endif %}
+
+                    {% if account_info.buyOnCreditMmb %}
+                        <div class="profile-item name-row">
+                            <a id="open_sber" style="margin: 0 5px;">Оформить кредит</a>
+                        </div>
+                    {% endif %}
+
+                    <button class="sberbank-button" href="/bank_account/unlink">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" viewBox="0 0 50 50" width="20px"
+                             height="20px">
+                            <path d="M 33.539062 2.6503906 L 16 12.679688 L 8.2597656 8.25 C 7.7797656 8.74 7.3396875
+                                    9.2590625 6.9296875 9.7890625 L 16 14.990234 L 35.759766 3.6796875 C 35.039766 3.2896875
+                                    34.299062 2.9503906 33.539062 2.6503906 z M 38.830078 5.6191406 L 16 18.679688 L 5.1191406
+                                    12.449219 C 4.7791406 13.019219 4.4694531 13.610938 4.1894531 14.210938 L 16 20.990234
+                                    L 40.470703 6.9902344 C 39.950703 6.5102344 39.400078 6.0591406 38.830078 5.6191406 z M 42.75
+                                    9.3808594 L 16 24.679688 L 3.0195312 17.240234 C 2.8095313 17.890234 2.64 18.560234 2.5 19.240234
+                                    L 16 26.990234 L 43.960938 10.990234 C 43.580938 10.440234 43.18 9.9008594 42.75 9.3808594 z M
+                                    45.716797 14 L 16 31 L 2.046875 23 C 2.030875 23.333 2 23.663 2 24 C 2 36.703 12.297 47 25 47
+                                    C 37.703 47 48 36.703 48 24 C 48 20.416 47.179797 17.024 45.716797 14 z"/>
+                        </svg>
+                        Выйти из СберБизнес ID
+                    </button>
+                </div>
+                <div class="modal-wrap">
+                    <div class="hover"></div>
+                    <div class="modal-frame">
+                        <span class="close-modal">×</span>
+                        <h2>Оформление кредита</h2>
+                        <ul>Условия кредитования:
+                            <li>
+                                <span>Минимальная сумма кредита:</span>
+                                <span>100 000 рублей</span>
+                            </li>
+                            <li>
+                                <span>Максимальная сумма кредита:</span>
+                                <span>5 000 000 рублей</span>
+                            </li>
+                            <li>
+                                <span>Ставка:</span>
+                                <span>от 15,6%</span>
+                            </li>
+                            <li>
+                                <span>Минимальный срок кредитования:</span>
+                                <span>1 месяц</span>
+                            </li>
+                            <li>
+                                <span>Максимальный сумма кредита:</span>
+                                <span>36 месяцев</span>
+                            </li>
+                        </ul>
+                        <form id="sberbank">
+                            <label for="amount">
+                                <span>Введите сумму кредита</span>
+                                {% if account_info.offerSmartCredit and account_info.summOfferSmartCredit %}
+                                    <input type="number" name="amount"
+                                           value="{{ account_info.summOfferSmartCredit }}">
+                                {% else %}
+                                    <input type="number" name="amount" value="0">
+                                {% endif %}
+                            </label>
+                            <button class="sberbank-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" viewBox="0 0 50 50" width="20px"
+                                     height="20px">
+                                    <path d="M 33.539062 2.6503906 L 16 12.679688 L 8.2597656 8.25 C 7.7797656 8.74 7.3396875
+                                            9.2590625 6.9296875 9.7890625 L 16 14.990234 L 35.759766 3.6796875 C 35.039766 3.2896875
+                                            34.299062 2.9503906 33.539062 2.6503906 z M 38.830078 5.6191406 L 16 18.679688 L 5.1191406
+                                            12.449219 C 4.7791406 13.019219 4.4694531 13.610938 4.1894531 14.210938 L 16 20.990234
+                                            L 40.470703 6.9902344 C 39.950703 6.5102344 39.400078 6.0591406 38.830078 5.6191406 z M 42.75
+                                            9.3808594 L 16 24.679688 L 3.0195312 17.240234 C 2.8095313 17.890234 2.64 18.560234 2.5 19.240234
+                                            L 16 26.990234 L 43.960938 10.990234 C 43.580938 10.440234 43.18 9.9008594 42.75 9.3808594 z M
+                                            45.716797 14 L 16 31 L 2.046875 23 C 2.030875 23.333 2 23.663 2 24 C 2 36.703 12.297 47 25 47
+                                            C 37.703 47 48 36.703 48 24 C 48 20.416 47.179797 17.024 45.716797 14 z"/>
+                                </svg>
+                                Оформить кредит с Сбербизнес ID
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            {% else %}
+                <div class="selfinfo-frame profile-list sberbank-list">
+                    <div class="name-row bordered">
+                        <span>Аккаунт сбербанк бизнес онлайн не привязан к системе!</span>
+                    </div>
+                    <button class="sberbank-button" href="/bank_account/link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" viewBox="0 0 50 50" width="20px"
+                             height="20px">
+                            <path d="M 33.539062 2.6503906 L 16 12.679688 L 8.2597656 8.25 C 7.7797656 8.74 7.3396875
+                                    9.2590625 6.9296875 9.7890625 L 16 14.990234 L 35.759766 3.6796875 C 35.039766 3.2896875
+                                    34.299062 2.9503906 33.539062 2.6503906 z M 38.830078 5.6191406 L 16 18.679688 L 5.1191406
+                                    12.449219 C 4.7791406 13.019219 4.4694531 13.610938 4.1894531 14.210938 L 16 20.990234
+                                    L 40.470703 6.9902344 C 39.950703 6.5102344 39.400078 6.0591406 38.830078 5.6191406 z M 42.75
+                                    9.3808594 L 16 24.679688 L 3.0195312 17.240234 C 2.8095313 17.890234 2.64 18.560234 2.5 19.240234
+                                    L 16 26.990234 L 43.960938 10.990234 C 43.580938 10.440234 43.18 9.9008594 42.75 9.3808594 z M
+                                    45.716797 14 L 16 31 L 2.046875 23 C 2.030875 23.333 2 23.663 2 24 C 2 36.703 12.297 47 25 47
+                                    C 37.703 47 48 36.703 48 24 C 48 20.416 47.179797 17.024 45.716797 14 z"/>
+                        </svg>
+                        Войти c СберБизнес ID
+                    </button>
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="selfinfo-frame profile-list">
+                <div class="name-row bordered">
+                    <span>Авторизуйтесь для получения информации о предодобренном лимите</span>
+                </div>
+                <div class="profile-item">
+                    <a href="/auth/">Авторизоваться</a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>

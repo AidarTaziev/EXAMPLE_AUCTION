@@ -1,0 +1,15 @@
+{% extends "general/base.html" %}
+{% block title %} Список документов {% endblock %}
+{% load static %}
+
+{% block content %}
+    <h2>Список документов:</h2>
+    <ul class="docs">
+{#        <li>#}
+{#            <a href="{% url 'incoterms' %}" target="_blank" class="link-inc">Инкотермс</a>#}
+{#        </li>#}
+        {% for doc in docs %}
+             <li><a href="/document/{{ doc.name }}" target="_blank">{{ doc.name }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock content %}

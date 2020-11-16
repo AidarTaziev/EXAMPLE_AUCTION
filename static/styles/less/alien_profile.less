@@ -1,0 +1,122 @@
+@import "base.less";
+
+header .right-side .content-wrap {
+  .profile-container {
+    .flex(row, space-between, flex-start);
+    flex-wrap: wrap;
+    width: @base-width;
+    padding: 50px 0;
+
+    .user-info {
+      .flex(column, flex-start, flex-start);
+      padding: 20px;
+      width: 50%;
+      min-width: 350px;
+      background-color: #fff;
+      border-radius: 5px;
+      height: 500px;
+      box-shadow: 0 3px 14px 0 rgba(0,0,0,0.2);
+      transition: all .2s linear;
+      margin-bottom: 20px;
+
+      & h2 {
+        .flex(row, flex-start, center);
+        position: relative;
+        width: 100%;
+        padding: 10px 0;
+        color: @black-color;
+        font-weight: bold;
+        border-bottom: 1px solid #eee;
+        margin-bottom: 10px;
+
+        & img {
+          margin-right: 10px;
+        }
+      }
+
+      & div {
+        padding: 10px 0;
+        font-size: 1.5em;
+      }
+
+      & strong {
+         color: @green-color;
+      }
+
+      & span {
+        color: #000;
+      }
+
+      & button {
+        margin-top: auto;
+        align-self: center;
+      }
+    }
+
+    .company-info {
+      & .company-items {
+        overflow-y: scroll;
+        & div {
+          padding: 10px 0;
+          font-size: 1em;
+        }
+      }
+    }
+
+    .statistic-wrap {
+      .flex(column, flex-start, center);
+      width: 45%;
+      min-width: 320px;
+      height: 500px;
+
+      & .statistic-title {
+        width: 100%;
+        padding-bottom: 25px;
+        & h2 {
+          padding: 0;
+          font-size: 2em;
+          border-bottom: 1px solid #eee;
+          margin: 0;
+          padding-bottom: 25px;
+          width: 100%;
+        }
+      }
+
+      & .statistic-box {
+        .flex(row, space-around, center);
+        flex-wrap: wrap;
+        width: 100%;
+      }
+
+      & .statistic-item {
+        .flex(column, center, center);
+        width: 150px;
+        height: 150px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 3px 14px 0 rgba(0,0,0,0.2);
+        transition: all .2s linear;
+        margin-bottom: 50px;
+        cursor: pointer;
+
+        &:hover {
+          transform: scale(1.5);
+        }
+
+        & h2 {
+          justify-content: center;
+          margin: 0;
+          font-size: 1.5em;
+          padding: 10px 0;
+          color: #000;
+        }
+
+        & span {
+          color: #9e9a9a;
+          text-align: center;
+          font-size: 1em;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,129 @@
+.main-container {
+  & .title-inc {
+    position: relative;
+    &::after {
+      content: "®";
+      position: absolute;
+      top: 35px;
+      font-size: .4em;
+    } 
+  }
+
+  & .back-to-inc {
+    display: none;
+    position: absolute;
+    top: 90px;
+    left: 77.8%;
+    transform: rotate(180deg);
+    cursor: pointer;
+    transition: transform .2s linear;
+    &:hover {
+      transform: rotate(180deg) scale(1.1);
+    }
+  }
+
+  & .incoterms-container {
+    .flex(row, flex-start, flex-start);
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    width: @base-width;
+
+    & .passive-inc {
+      .flex(column, flex-start, flex-start);
+      position: absolute;
+      top: 0;
+      left: 100%;
+      width: 100%;
+      transition: left .2s linear;
+
+      & span {
+        width: 100%;
+        font-size: 1.4em;
+        text-indent: 25px;
+      }
+
+      & .EXW-text-block {
+        .flex(column, flex-start, flex-start);
+
+        & .EXW-item {
+          .flex(row, space-between, flex-start);
+          width: 100%;
+
+          & div {
+            width: 50%;
+            text-align: left;
+
+            & b {
+              margin-right: 10px;
+              font-size: 1.4em;
+            }
+
+            & span {
+              display: inline-block;
+            }
+          }
+        }
+      }
+    }
+
+    & .main-inc {
+      .flex(column, flex-start, flex-start);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: auto;
+      transition: left .2s linear;
+
+      & span {
+        width: 100%;
+        font-size: 1.2em;
+        border-bottom: 3px solid #eee;
+        padding-bottom: 20px;
+      }
+
+      & h2 {
+        display: block;
+        padding: 30px 0;
+        font-weight: normal;
+        font-size: 1.5em;
+
+        & span {
+          font-style: italic;
+          font-size: 1em;
+          color: #928989;
+          border-bottom: none;
+        }
+      }
+
+      & ul {
+        list-style: square;
+
+        & li {
+          list-style: square;
+          padding: 10px;
+          & a {
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            padding-right: 20px;
+          }
+          & span {
+            border-bottom: none;
+          }
+        }
+      }
+
+      & ul:last-child {
+        margin-bottom: 50px;
+      }
+
+      & hr {
+        width: 100%;
+        border: 2px solid #eee;
+        margin: 20px 0;
+      }
+    }
+  }
+}

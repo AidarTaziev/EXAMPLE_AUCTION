@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+
+{% load static %}
+<html lang="en" dir="ltr">
+<head>
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function (m, e, t, r, i, k, a) {
+            m[i] = m[i] || function () {
+                (m[i].a = m[i].a || []).push(arguments)
+            };
+            m[i].l = 1 * new Date();
+            k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+        })
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+        ym(57203992, "init", {
+            clickmap: true,
+            trackLinks: true,
+            accurateTrackBounce: true
+        });
+    </script>
+    <noscript>
+        <div><img src="https://mc.yandex.ru/watch/57203992" style="position:absolute; left:-9999px;" alt=""/></div>
+    </noscript>
+    <!-- /Yandex.Metrika counter -->
+
+    <title>{% block title %} Оформление заявки {% endblock %}</title>
+    <meta charset="utf-8">
+    <meta http-equiv="pragma" content="no-cache"/>
+    <meta name="viewport"
+          content="width=device-width, height=device-height,  initial-scale=1.0, user-scalable=no;user-scalable=0;"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
+    <link rel="stylesheet" href="{% static "styles/css/main_page_styles/main.css" %}">
+    <link rel="stylesheet" href="{% static "styles/css/main.css" %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static "images/favicon.ico" %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+<div class="preload-wrap">
+    <div class="hover"></div>
+    <div class="preload-content">
+        <img src="{% static 'images/docx_logo.png' %}">
+        <svg class="spinner" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="1" stroke-miterlimit="10"></circle>
+        </svg>
+    </div>
+</div>
+{% include 'general/header.html' %}
+<header>
+    <div class="left-side">
+        <div class="logo">
+            <img src="{% static 'images/logotype.png' %}" alt="">
+        </div>
+        <div class="features-column">
+            <div class="features-item">
+                <img src="{% static 'images/secure.png' %}" width="32px">
+                <h3>Безопасность</h3>
+                <span>Мы гарантируем полную конфиденциальность данных</span>
+            </div>
+            <div class="features-item">
+                <img src="{% static 'images/speed.png' %}" alt="" width="32px">
+                <h3>Скорость</h3>
+                <span>Сервис создан с использованием новейших технологий</span>
+            </div>
+            <!--               <div class="features-item">
+                <img src="{% static 'images/usability.png' %}" alt="" width="32px">
+                <h3>Удобство</h3>
+                <span>Сервис позволяет получить доступ к справочнику полимеров, нескольким типам аукционов и другому</span>
+              </div>   -->
+            <div class="features-item">
+                <img src="{% static 'images/sup.png' %}" alt="" width="32px">
+                <h3>Поддержка</h3>
+                <span>Постоянное обновление функциональности и своевременное устранение ошибок</span>
+            </div>
+            <!-- <div class="features-item">
+                <img src="{% static 'images/sale.png' %}" alt="" width="32px">
+                <h3>Низкие цены</h3>
+                <span>Начальная цена в торговых сессиях гораздо ниже рыночной</span>
+              </div> -->
+            <div class="features-item">
+                <img src="{% static 'images/time.png' %}" alt="" width="32px">
+                <h3>24/7</h3>
+                <span>Сервис работает 24 часа в сутки, 7 дней в неделю</span>
+            </div>
+        </div>
+    </div>
+    <div class="right-side">
+        <div class="hover-wrap">
+            <!-- <img src="{% static 'images/header-1.png' %}" class="hover-img"> -->
+            <div class="hover"></div>
+        </div>
+        <!-- Главный контейнер -->
+        <h1>Торги</h1>
+        <h3 class="ruLang">Available only in Russian</h3>
+        <div class="content-wrap">
+            {% block content %} {% endblock content %}
+            {% include 'general/cookies.html' %}
+        </div>
+    </div>
+</header>
+<div class="alert-wrap" id="alert-wrap">
+    <div class="hover"></div>
+    <div class="alert-frame">
+        <h2></h2>
+    </div>
+</div>
+<!-- {#{% include 'general/header.html' %}#} -->
+
+<!-- <main class="main-container">
+        {#{% block content %} {% endblock content %}#}
+        {#{% include 'general/cookies.html' %}#}
+    </main> -->
+<!-- {% include 'general/notification.html' %} -->
+<script type="text/javascript" src="{% static "js/main-files/main-functions.js" %}"></script>
+<script type="text/javascript" src="{% static "js/main-files/main.js" %}"></script>
+<script type="text/javascript" src="{% static "js/main-page/main.js" %}"></script>
+{% block adding_js %}{% endblock adding_js %}
+</body>
+</html>

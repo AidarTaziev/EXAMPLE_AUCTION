@@ -1,0 +1,17 @@
+*.pyc
+*~
+__pycache__
+db.sqlite3
+.DS_Store
+/Lib
+/Scripts
+/Include
+pip-selfcheck.json
+*.cfg
+.idea/
+/env
+/myvenv
+/assets
+kartli_marketplace.log
+/sql_backups/*
+/venv/

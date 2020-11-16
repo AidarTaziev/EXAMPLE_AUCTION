@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+<head>
+    <title>Оформление заявки</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height,  initial-scale=1.0, user-scalable=no;user-scalable=0;"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
+    <link rel="stylesheet" href="{% static "styles/css/main.css" %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static "images/favicon.ico" %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+  <body>
+    <div class="main-container">
+      <div class="subcont">
+        <div class="sign-line">
+          <img src="{% static 'images/logo.png' %}" width="200px">
+        </div>
+        <div class="sign-wrap">
+          <div class="sign-header">
+            <h2 id="in" class="form-setter">Авторизация</h2>
+            <!-- <h2 class="form-setter hidden" id="up">Регистрация</h2> -->
+          </div>
+          <form class="sign-in sign-form" action="" method="post"> {% csrf_token %}
+            <label>
+              <span>Логин</span>
+              <input type="text" name="username">
+            </label>
+            <label>
+              <span>Пароль</span>
+              <img src="{% static "images/unlock.png" %}" alt="" width="16px" class="unlock-img lock">
+              <input type="password" name="password" class="locking-input">
+              <img src="{% static "images/lock.png" %}" alt="" width="16px" class="lock">
+            </label>
+
+            <!-- <label class="checkbox-label">
+              <span>Я соглашаюсь с <a>Правилами использования сервиса</a></span>
+              <input type="checkbox" name="">
+            </label> -->
+
+            <span class="alert-span-log"></span>
+            <input type="submit" name="sign_in" value="Войти">
+          </form>
+          <form class="sign-up sign-form hidden-form-up" action="" method="post" style="display: none;"> {% csrf_token %}
+            <label>
+              <span>Имя</span>
+              <input type="text" name="first_name">
+            </label>
+            <label>
+              <span>Фамилия</span>
+              <input type="text" name="last_name">
+            </label>
+            <label>
+              <span>Логин</span>
+              <input type="text" name="username">
+            </label>
+            <label>
+              <span>Email</span>
+              <input type="text" name="email">
+            </label>
+            <label>
+              <span>Пароль</span>
+              <img src="{% static "images/unlock.png" %}" alt="" width="16px" class="unlock-img lock">
+              <input type="password" name="password1" id="reg_password" class="locking-input">
+              <img src="{% static "images/lock.png" %}" alt="" width="16px" class="lock">
+            </label>
+            <label>
+              <span>Подтвердите пароль</span>
+              <img src="{% static "images/unlock.png" %}" alt="" width="16px" class="unlock-img lock">
+              <input type="password" name="password2" class="locking-input">
+              <img src="{% static "images/lock.png" %}" alt="" width="16px" class="lock">
+            </label>
+            <span class="alert-span-sign"></span>
+            <input type="submit" name="sign_in" value="Зарегистрироваться" disabled class="disabled-btn sign-btn">
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="{% static 'js/main-files/main-ajax.js' %}" charset="utf-8"></script>
+    <script type="text/javascript" src="{% static 'js/sign/validation.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/sign/sign.js' %}"></script>
+  </body>
+</html>

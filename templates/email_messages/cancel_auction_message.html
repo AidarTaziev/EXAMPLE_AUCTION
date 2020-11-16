@@ -1,0 +1,62 @@
+<html>
+<head>
+    <style>
+		<!-- этот блок игнорируется gmail'ом! объявляй стили "на месте" -->
+    </style>
+</head>
+<body>
+	<!-- Тестируй ВСЕ уведомления открывая вёрстку Word'ом. Он показывает, как уведомление будет отрисовываться в Outlook'е-->
+    <table style="font:14px 'Times New Roman',Helvetica,Arial,sans-serif; width: 100%; padding:15px 25px; cellspacing: 0; cellpadding: 0;" align="center" bgcolor="#f5f5f5">
+        <tr>
+            <td>
+																  <!--#fff нельзя использовать! Outlook не хавает!-->
+                <table style="margin:30px auto; padding:15px 25px; cellspacing: 0; cellpadding: 0;" width="850" bgcolor="#ffffff" align="center">
+                    <tr>
+                        <td>
+                            <main>
+                                <table style="padding:15px 25px; cellspacing: 0; cellpadding: 0;">
+                                    <tr style="border-bottom: 1px solid #eeeeee; padding: 10px;">
+                                        <td style="text-align:left;">
+                                            <a href="http://example.tyu">
+												<!--Размер картинки ОБЯЗАТЕЛЬНО задавай высотой и шириной. Иначе Outlook говнянит размер! -->
+                                                <img width="200" height="62" src="https://bidding.example.tyu/static/images/docx_logo.png"
+                                                     alt="Картли" >
+                                            </a>
+                                        </td>
+                                        <td style="font:14px 'Times New Roman',Helvetica,Arial,sans-serif; text-align:right; width:100%" >
+                                            <!--      ВЕЗДЕ перед текстом устанавливай чёткий цвет, иначе gmail при сборке в цепочку писем его покрасит в фиолетовый-->
+											<p style="color: black;">
+                                                TIN 1655202105<br>
+                                                Box 5, 420107, Kazan, Russia<br>
+                                                tel:  +7 (843) 580 26 26<br>
+                                                e-mail: info@example.tyu<br>
+                                                www.example.tyu
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table style="padding:15px 25px; cellspacing: 0; cellpadding: 0;">
+                                    <tr>
+                                        <td>
+											<!--      ВЕЗДЕ перед текстом устанавливай чёткий цвет, иначе gmail при сборке в цепочку писем его покрасит в фиолетовый-->
+                                            <p style="text-align:center; color: black;">Уважаемые коллеги! </p>
+                                            <!--      ВЕЗДЕ перед текстом устанавливай чёткий цвет, иначе gmail при сборке в цепочку писем его покрасит в фиолетовый-->
+											<p style="color: black; text-indent: 25px;">К сожалению, Торги №{{ id }}, на которых был выставлен {{ polymer_type }} {{ polymer_shortcode }} {% if polymer_plant %}{{ polymer_plant }}{% endif %} по минимальной цене {{ start_price_per_tone }} руб. ({% if is_price_with_nds %}c{% else %}без{% endif %} НДС), отменены.  О проведении других торгов будет сообщено отдельно.</p>
+										</td>
+                                    </tr>
+                                </table>
+                            </main>
+                        </td>
+                    </tr>
+					<tr bgcolor="#242526">
+						<td style="padding:15px 25px; font-size:12px;font-weight:100;color:#f5f5f5;text-align:center">
+							<!--      ВЕЗДЕ перед текстом устанавливай чёткий цвет, иначе gmail при сборке в цепочку писем его покрасит в фиолетовый-->
+							<p style="color:#ffffff;">© 2010 — 2019. ООО «КАРТЛИ» Все права защищены.</p>
+						</td>
+					</tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

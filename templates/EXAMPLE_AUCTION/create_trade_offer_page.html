@@ -1,0 +1,257 @@
+{% extends "general/base.html" %}
+{% load static %}
+
+{% block content %}
+    <h2 class="create-title-wrap">
+        Оформление заявки
+        <span id="template-opener">Открыть шаблоны заявки</span>
+    </h2>
+    <div class="templates-wrap">
+        <div class="hover"></div>
+        <div class="templates-window">
+            <h2>
+                Выберите нужный шаблон
+                <span class="close-templates">×</span>
+            </h2>
+            {% for template in auctions_templates %}
+                <!-- Div с классом template-row нужно кидать в цикл и выводить все шаблоны пользователя -->
+                <div class="template-row" data-id="{{ template.id }}" data-bidding_type="{{ template.type.id }}">
+                    <!-- В параметр data-id нужно указать идентификатор шаблона -->
+                    {% if template.template_name %}
+                        <input type="text" name="" value="{{ template.template_name }}" class="template_name">
+                    {% else %}
+                        <input type="text" name="" value="{{ template }}" class="template_name">
+                    {% endif %}
+                    <span class="template_chooser">Выбрать</span>
+                    <div class="hidden-fields">
+                        <span data-name="id" data-request="id">{{ template.id }}</span>
+                        <span data-name="type" data-request="type_id">{{ template.type.id }}</span>
+                        <span data-name="level" data-request="level_id"></span>
+                        <span data-name="polymer_id" data-request="polymer_id"></span>
+                        <span data-name="lot_size" data-request="lot_size"></span>
+                        <span data-name="lot_amount" data-request="lot_amount"></span>
+                        <span data-name="start_price_per_tone" data-request="start_price_per_tone"></span>
+                        <span data-name="step" data-request="step"></span>
+                        <span data-name="payment_term" data-request="payment_term"></span>
+                        <span data-name="shipment_condition" data-request="shipment_condition_id"></span>
+                        <span data-name="shipment_method" data-request="shipment_method_id"></span>
+                        <span data-name="delivery" data-request="delivery"></span>
+                        <span data-name="storage_location" data-request="storage_location"></span>
+                        <span data-name="fixation_duration" data-request="fixation_duration"></span>
+                        <span data-name="seller" data-request="seller_id"></span>
+                        <span data-name="is_apply_for_participation" data-request="is_apply_for_participation"></span>
+                        <span data-name="is_price_with_nds" data-request="is_price_with_nds"></span>
+                    </div>
+                </div>
+            {% endfor %}
+            {#            {% for template in tenders_templates %}#}
+            {#                <!-- Div с классом template-row нужно кидать в цикл и выводить все шаблоны пользователя -->#}
+            {#                <div class="template-row" data-id="{{ template.id }}" data-bidding_type="{{ template.type.id }}">#}
+            {#                    <!-- В параметр data-id нужно указать идентификатор шаблона -->#}
+            {#                    {% if template.template_name %}#}
+            {#                        <input type="text" name="" value="{{ template.template_name }}" class="template_name">#}
+            {#                    {% else %}#}
+            {#                        <input type="text" name="" value="{{ template }}" class="template_name">#}
+            {#                    {% endif %}#}
+            {#                    <button type="button" name="button" class="template_chooser">Выбрать</button>#}
+            {#                    <div class="hidden-fields">#}
+            {#                        <span data-name="id" data-request="id">{{ template.id }}</span>#}
+            {#                        <span data-name="type" data-request="type_id">{{ template.type.id }}</span>#}
+            {#                        <span data-name="level" data-request="level_id"></span>#}
+            {#                        <span data-name="polymer" data-request="polymer_id"></span>#}
+            {#                        <span data-name="lot_size" data-request="lot_size"></span>#}
+            {#                        <span data-name="lot_amount" data-request="lot_amount"></span>#}
+            {#                        <span data-name="recommended_price" data-request="recommended_price"></span>#}
+            {#                        <span data-name="step" data-request="step"></span>#}
+            {#                        <span data-name="payment_term" data-request="payment_term_id"></span>#}
+            {#                        <span data-name="shipment_condition" data-request="shipment_condition_id"></span>#}
+            {#                        <span data-name="shipment_method" data-request="shipment_method_id"></span>#}
+            {#                        <span data-name="delivery" data-request="delivery"></span>#}
+            {#                        <span data-name="storage_location" data-request="storage_location"></span>#}
+            {#                        <span data-name="seller" data-request="seller_id"></span>#}
+            {#                        <span data-name="is_apply_for_participation" data-request="is_apply_for_participation"></span>#}
+            {#                        <span data-name="is_price_with_nds" data-request="is_price_with_nds"></span>#}
+            {#                    </div>#}
+            {#                </div>#}
+            {#            {% endfor %}#}
+        </div>
+    </div>
+    <form class="request-wrap" enctype="multipart/form-data">{% csrf_token %}
+        <label>
+            <span>Вид торгов</span>
+            <select name="type">
+                <option value="2" selected>Классический</option>
+
+                {#                {% for element in auction_types %}#}
+                {#                    {% if element.name == 'Классический' %}#}
+                {#                        <option value="{{ element.id }}" selected>{{ element.name }}</option>#}
+                {#                    {% else %}#}
+                {#                        <option value="{{ element.id }}">{{ element.name }}</option>#}
+                {#                    {% endif %}]#}
+                {#                {% endfor %}#}
+            </select>
+        </label>
+        <label>
+            <span>Тип торгов</span>
+            <select name="level">
+                <option value="1">Открытые торги</option>
+
+                {#                {% for element in auction_levels %}#}
+                {#                    <option value="{{ element.id }}">{{ element.name }}</option>#}
+                {#                {% endfor %}#}
+            </select>
+        </label>
+        <div class="like-label">
+            <span>Полимер</span>
+            <input type="text" placeholder="Введите название полимера" name="polymer_id" class="absolute-polymer-input"
+                   id="polymer-input" autocomplete="off" data-id="">
+            <div name="polymer" id="polymer-select" class="div-select">
+                {% for element in polymers %}
+                    <div data-value="{{ element.id }}" class="div-option" id="polymer-option"
+                         data-shortcode="{{ element.shortcode }}">{{ element.shortcode }}</div>
+                {% endfor %}
+            </div>
+        </div>
+        <label>
+            <span>Объем лота</span>
+            <input type="number" step="0.001" name="lot_size" placeholder="Введите число тонн" min="0.1">
+        </label>
+        <label data-name="lot-count">
+            <span>Количество лотов</span>
+            <input type="number" name="lot_amount" placeholder="Введите число">
+        </label>
+        <label data-name="start_price_per_tone">
+            <span>Стартовая цена за тонну</span>
+            <input type="number" name="start_price_per_tone" placeholder="Введите цену в рублях">
+        </label>
+        <label data-name="stop_price_per_tone" style="display: none;">
+            <span>Стоп цена за тонну</span>
+            <input type="number" name="stop_price_per_tone" placeholder="Введите цену в рублях">
+        </label>
+        <label data-name="recommended_price" style="display: none;">
+            <span>Рекомендованная цена за тонну</span>
+            <input type="number" name="recommended_price" placeholder="Введите цену в рублях">
+        </label>
+        <label>
+            <span>Условия поставки</span>
+            <select name="shipment_condition">
+                <option value="default">Выберите операцию</option>
+                {#                {% for element in shipment_conditions %}#}
+                <option value="1">EXW</option>
+                <option value="2">FCA</option>
+
+                {#                {% endfor %}#}
+            </select>
+        </label>
+        <label>
+            <span>
+                Базис отгрузки»(<span class="basis-count">0</span>)
+                <img src="{% static "images/more.png" %}" alt="" width="12px" class="basis-list-opener">
+            </span>
+            <input type="text" name="storage_location" placeholder="Введите город">
+            <span class="new-basis">+</span>
+            <ul class="basis-list">
+
+            </ul>
+        </label>
+        <label>
+            <span>Способ оплаты</span>
+            <input type="text" name="payment_term" placeholder="">
+        </label>
+        <label data-name="step">
+            <span>Шаг торгов</span>
+            <input type="number" name="step" placeholder="Введите число в рублях">
+        </label>
+
+        {#        <label>#}
+        {#            <span>Тип грузоперевозки</span>#}
+        {#            <select name="shipment_method">#}
+        {#                <option value="default">Выберите операцию</option>#}
+        {#                {% for element in shipment_methods %}#}
+        {#                    <option value="{{ element.id }}">{{ element.name }}</option>#}
+        {#                {% endfor %}#}
+        {#            </select>#}
+        {#        </label>#}
+        <label>
+            <span>Срок поставки</span>
+            <input type="text" name="delivery" placeholder="">
+        </label>
+        <label>
+            <span id="auction_date">Дата начала торгов</span>
+            <input type="date" name="auction_date" placeholder="Введите дату торгов">
+        </label>
+        <label>
+            <span>Время начала торгов</span>
+            <input type="time" name="t_startAuction" placeholder="Введите время начала торгов">
+        </label>
+        <label data-name="end_bidding" >
+            <span>Дата окончания торгов</span>
+            <input type="date" name="auction_end_date" placeholder="Введите дату торгов">
+        </label>
+        <label>
+            <span>Время окончания торгов</span>
+            <input type="time" name="t_endAuction" placeholder="Введите время окончания торгов">
+        </label>
+        <label data-name="fixation-duration">
+            <span>Время фиксации сделки (сек)</span>
+            <input type="number" name="fixation_duration" placeholder="Введите время в секундах">
+        </label>
+        {#        <div class="bonus-row-opener bonus-list-opener" data-opener-name="companys-list">#}
+        {#            <h2>Список допущеных компаний</h2>#}
+        {#            <img src="{% static "images/more.png" %}" alt="" width="24px" class="bonus-opener">#}
+        {#        </div>#}
+        {#        <div class="bonus-fields-wrap bonus-list" data-opening-name="companys-list">#}
+        {#            <div class="add-to-list-wrap">#}
+        {#                <div class="check-wrap">#}
+        {#                    <span>Разрешить другим компаниям подавать заявки на участие в аукционе</span>#}
+        {#                    <input type="checkbox" name="is_apply_for_participation" value="">#}
+        {#                </div>#}
+        {#                <div class="">#}
+        {#                    <span>Добавить компанию</span>#}
+        {#                    <button type="button" name="button" id="add_company_to_list">+</button>#}
+        {#                </div>#}
+        {#            </div>#}
+        {#            <label class="companys-list active-label" data-id="0">#}
+        {#                <div class="first">#}
+        {#                    <span>ИНН компании:</span>#}
+        {#                    <input type="text" placeholder="Введите инн компании" class="company_inn">#}
+        {#                </div>#}
+        {#                <div class="second">#}
+        {#                    <span>Название компании:</span>#}
+        {#                    <span class="company-name">Неизвестно</span>#}
+        {#                </div>#}
+        {#                <div class="third">#}
+        {#                    <button type="button" name="button" class="check_company">Проверить</button>#}
+        {#                    <button type="button" name="button" class="delete_company">Удалить</button>#}
+        {#                </div>#}
+        {#            </label>#}
+        {#        </div>#}
+        <div class="bonus-row-opener" data-opener-name="bonus-field">
+            <h2>Дополнительное условие торгов</h2>
+            <img src="{% static "images/more.png" %}" alt="" width="24px" class="bonus-opener">
+        </div>
+        <div class="bonus-fields-wrap" data-opening-name="bonus-field">
+            <label data-name="text-bonus-field">
+                <span class="textarea-title">Описание дополнительного условия</span>
+                <textarea name="special_conditions" rows="10" placeholder="Введите текст сюда..."></textarea>
+            </label>
+        </div>
+
+        <div class="btn-wrap">
+            <div class="check-wrap">
+                <span>Цены указаны с учетом НДС</span>
+                <input type="checkbox" name="is_price_with_nds" value="">
+            </div>
+            <div class="check-wrap">
+                <span>Создать шаблон на основе этой заявки</span>
+                <input type="checkbox" name="template_is" value="">
+            </div>
+            <span class="clear">Сбросить x</span>
+            <input type="submit" name="sender" value="Добавить">
+        </div>
+        <input type="hidden" name="seller" value="{{ request.user.id }}">
+    </form>
+    <script type="text/javascript" src="{% static 'js/main-files/main-ajax.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/create-request/create-request.js' %}"></script>
+
+{% endblock content %}

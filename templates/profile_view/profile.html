@@ -1,0 +1,79 @@
+{% extends "general/base.html" %}
+{% block title %} Личный кабинет {% endblock%}
+{% load static %}
+{% block content %}
+
+<div class="profile-container alien">
+  <div class="user-info">
+    <h2>
+      <img src="{% static 'images/alien_user.png' %}" width="64px" height="64px">
+      {{last_name}} {{first_name}}
+    </h2>
+
+    <div class="">
+      <strong>Email:</strong>
+      <span>{{email}}</span>
+    </div>
+
+    <div class="">
+      <strong>Компания:</strong>
+      {% if company.short_name %}
+
+      <a href="/profile/company/{{ company.id }}"><span>{{ company.short_name }}</span></a>
+
+      {% else %}
+
+      <span>Отсутствует</span>
+
+      {% endif %}
+
+    </div>
+
+    <div class="">
+      <strong>Последний раз заходил:</strong>
+
+      {% if last_login %}
+
+        <span>{{ last_login }}</span>
+
+      {% else %}
+
+        <span>никогда </span>
+
+      {% endif %}
+    </div>
+
+
+    <button type="button" name="button">Пожаловаться</button>
+  </div>
+  <div class="statistic-wrap">
+    <div class="statistic-title">
+      <h2>Статистика пользователя</h2>
+    </div>
+    <div class="statistic-box">
+      <div class="wins-count statistic-item">
+        <img src="{% static 'images/win.png' %}" width="64px" height="64px">
+        <h2>{{ statistic.deals }}</h2>
+        <span>совершенно сделок</span>
+      </div>
+      <div class="lost-count statistic-item">
+        <img src="{% static 'images/sad_face.png' %}" width="64px" height="64px">
+        <h2>{{ statistic.lost }}</h2>
+        <span>проиграно торгов</span>
+      </div>
+      <div class="played-count statistic-item">
+        <img src="{% static 'images/EXAMPLE_AUCTION.png' %}" width="64px" height="64px">
+        <h2>{{ statistic.all }}</h2>
+        <span>играл торгов</span>
+      </div>
+      <div class="saled-tons statistic-item">
+        <img src="{% static 'images/saled.png' %}" width="64px" height="64px">
+        <h2>0</h2>
+        <span>продано лотов</span>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

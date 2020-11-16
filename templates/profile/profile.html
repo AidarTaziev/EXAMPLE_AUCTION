@@ -1,0 +1,80 @@
+{% extends "general/base.html" %}
+{% block title %} Личный кабинет {% endblock %}
+{% load static %}
+{% load poll_extras %}
+{% block content %}
+
+  <div class="profile-container">
+    <div class="settings-wrap active">
+      <h2>
+        <img src="{% static 'images/settings.png' %}" width="64px" height="64px">
+        НАСТРОЙКИ
+        <strong class="close">×</strong>
+      </h2>
+      <span class="first-cont" style="display: none;">
+        Посмотрите информацию о компании, измените параметры уведомлений
+      </span>
+      <button type="button" name="button" class="first-cont settings" style="display: none;">Настройки</button>
+      <div class="hidden-content">
+        <form class="profile-changer">{% csrf_token %}
+
+          <div class="check-wrap">
+            <label for="creating_auction_notification">Получать уведомления о созданных торгах.</label>
+            <input type="checkbox" class="first_checker" id="creating_auction_notification" name="creating_auction_notification" {% if creating_auction_notification %} checked {% endif %}>
+          </div>
+
+          <div class="check-wrap">
+            <label for="starting_auction_notification">Получать уведомления о начинающихся торгах </label>
+            <input type="checkbox" class="first_checker" id="starting_auction_notification" name="starting_auction_notification" {% if starting_auction_notification %} checked {% endif %}>
+          </div>
+
+          <div class="check-wrap">
+            <label for="ending_auction_notification">Получать уведомления об отмене торгов </label>
+            <input type="checkbox" class="first_checker" id="cancel_auction_notification" name="cancel_auction_notification" {% if cancel_auction_notification %} checked {% endif %}>
+          </div>
+
+          <div class="more-notifications-wrap">
+            <span id="more_notifications_btn">Дополнительные настройки уведомлений</span>
+            <div class="pop-up-notifications-wrap">
+              <div class="notifications-hover"></div>
+              <div class="notifications-window">
+                <div class="row title-row">
+                  <h2>Дополнительные настройки уведомлений</h2>
+                  <span class="close" id="notifications_closer">×</span>
+                </div>
+                <div class="rows-wrap">
+                    {% for type in polymer_types %}
+                        {% if type.polymers %}
+                            <div class="row clicked-row" data-idx="{{ type.id }}"><!-- это надо кинуть в цикл -->
+                                <span>{{ type.name }}</span>
+                                <span class="toggle-btn">+</span>
+                                <input type="checkbox" name="type"
+                                       class="polymer_check main_check"  {% if type.followed %} checked {% endif %}>
+                            </div>
+                            <div class="hidden-list" data-idx="{{ type.id }}">
+                                {% for polymer in type.polymers %}
+                                    <div class="row">
+                                        <span> - {{ polymer.shortcode }}</span>
+                                        <input type="checkbox" name="polymer" data-id="{{ polymer.id }}"
+                                               class="polymer_check polymer_mark" {% if polymer.followed %} checked {% endif %}>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+          <input type="submit" id="accept_more_notifications" value="Сохранить">
+        </form>
+
+      </div>
+    </div>
+
+    <span class="footer-span">Изменить личные данные вы сможете в <a href="https://passport.example.tyu/">Вашем паспорте</a></span>
+  </div>
+
+  <script type="text/javascript" src="{% static 'js/main-files/main-ajax.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/profile/profile.js' %}"></script>
+{% endblock content %}

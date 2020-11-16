@@ -1,0 +1,51 @@
+version: '3.1'
+
+services:
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    volumes:
+    - "/usr/projects/mysql_data:/var/lib/mysql"
+    ports:
+    - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: example_pass
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+    - "8002:80"
+    depends_on:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_USER: example_user
+      PMA_PASSWORD: example_pass
+
+  nginx:
+    image: nginx
+    ports:
+      - "443:443"
+      - "80:80"
+    restart: always
+    volumes:
+      - "./prod/nginx_conf:/etc/nginx/conf.d"
+      - "./assets:/home/EXAMPLE_AUCTION/assets"
+    depends_on:
+      - auction
+
+  auction:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - "./:/usr/projects/current"
+    environment:
+      - LEVEL=PRODUCTION
+    command: bash -c "python manage.py collectstatic --noinput && gunicorn --bind 0.0.0.0:8000 EXAMPLE_AUCTION.wsgi --reload && python manage.py starttornadoapp"
+    depends_on:
+      - db
+
+

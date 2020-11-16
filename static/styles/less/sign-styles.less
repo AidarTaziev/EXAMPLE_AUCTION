@@ -1,0 +1,176 @@
+@import "base.less";
+
+.main-container {
+  & .subcont {
+    .flex(column, flex-start, center);
+    background-image: url('../../images/bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 1000px;
+  }
+
+  & .sign-wrap {
+    .flex(column, flex-start, center);
+    position: relative;
+    z-index: 0;
+    min-width: 310px;
+    width: 35%;
+    height: 300px;
+    border-radius: 5px;
+    background: linear-gradient(lighten(#27ae60, 20%), #27ae60);
+    color: #fff;
+    padding: 20px 0;
+    margin-top: 5%;
+    overflow: hidden;
+    box-shadow: 0 3px 14px 0 rgba(0,0,0,1);
+    transition: height .2s linear;
+
+    & .sign-header {
+      .flex(row, flex-start, center);
+      width: 80%;
+      
+      & h2 {
+        position: relative;
+        margin-right: 20px;
+        letter-spacing: 1.3px;
+        font-size: 1.3em;
+        width: auto;
+        cursor: pointer;
+        &:before {
+          position: absolute;
+          content: '';
+          height: 3px;
+          width: 100%;
+          bottom: 25%;
+          background-color: #fff;
+          transition: bottom .2s linear;
+        }
+      }
+      & .hidden {
+        opacity: .6;
+        &:before {
+          visibility: hidden;
+          bottom: 35%;
+        }
+      }
+
+      & .form-setter {
+        padding: 20px 0;
+      }
+    }
+
+    .sign-form {
+      .flex(column, flex-start, center);
+      position: absolute;
+      top: 100px;
+      left: 10%;
+      width: 80%;
+      transition: left .3s linear;
+
+      & label {
+        .flex(column, flex-start, flex-start);
+        position: relative;
+        width: 100%;
+
+        & span {
+          font-size: 1.2em;
+          padding: 5px 0;
+        }
+
+        & input {
+          background: rgba(255,255,255,.2);
+          padding: 10px 2.5%;
+          width: 95%;
+          border: none;
+          transition: background .2s linear;
+          &:focus {
+            background: rgba(255,255,255,.5);
+          }
+        }
+      }
+      & .checkbox-label {
+        .flex(row, space-between, center);
+        margin: 10px 0;
+        width: 100%;
+        & a {
+          color: #fff;
+          text-decoration: underline;
+          cursor: pointer;
+        }
+        & input {
+          position: relative;
+          width: auto;
+          cursor: pointer;
+          background: #fff;
+          min-width: 26px;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          -o-appearance: none;
+          &::before, &::after {
+            content: "";
+            position: absolute;
+            z-index: 0;
+            transform: scale(0);
+            right: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            transition: transform .2s ease-in-out;
+          }
+          &:checked {
+            &::before {
+              transform: scale(1);
+            }
+            &::after {
+              content: "✔";
+              font-size: 1.5em;
+              transform: scale(1);
+              top: -5px;
+              left: 5px;
+              color: @green-color;
+              z-index: 5;
+              background-color: transparent;
+            }
+          }
+        }
+      }
+      & input[type="submit"] {
+        .button(5px, transparent, #fff, 15);
+        width: auto;
+        border-color: transparent;
+        transition-duration: .2s;
+        margin-top: 20px;
+        font-weight: bold;
+        font-size: 1.2em;
+        &:hover {
+          box-shadow: 2px 2px 2px 2px rgba(0,0,0,.5);
+          background-color: transparent;
+          color: #fff;
+        }
+      }
+
+      & input[type="submit"].disabled-btn {
+        &:hover {
+          box-shadow: none;
+        }
+      }
+    }
+
+    .hidden-form-up {
+      left: 600px;
+    }
+
+    .hidden-form-in {
+      left: -600px;
+    }
+  }
+
+  & .sign-line {
+    .flex(row, flex-start, center);
+    width: 90%;
+    padding: 5px 5%;
+    margin-top: 10px;
+  }
+}

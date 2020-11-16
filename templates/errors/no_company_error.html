@@ -1,0 +1,6 @@
+{% extends "general/error.html" %}
+{% block error_data %}
+    <h1>У вас нет доступа</h1>
+    <span>{{ error_data }}Что бы получить доступ, зарегистрируйте компанию <a
+            href="https://passport.example.tyu/">здесь</a></span>
+{% endblock error_data %}

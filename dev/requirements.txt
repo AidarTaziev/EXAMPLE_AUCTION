@@ -1,0 +1,12 @@
+beautifulsoup4==4.7.1
+bs4==0.0.1
+Django==2.2.1
+redis==3.3.8
+mysqlclient==1.4.2
+requests==2.22.0
+djangorestframework==3.10.3
+tornado==6.0.2
+gunicorn==19.9.0
+PyPDF2==1.26.0
+reportlab==3.5.23
+docxtpl==0.5.20

@@ -1,0 +1,216 @@
+{% extends "general/session_base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <h2 id="{{ id }}" class="empty_title"></h2>
+    <div class="info-wrap session">
+        <div class="request-info biddings-info">
+            <h2>Информация о лоте</h2>
+            <input type="hidden" name="auction-type" value="holland">
+            {% if perms.authentication.can_view_all_data %}
+                <input type="hidden" name="user" value="moderator">{% endif %}
+
+            <div class="request-subwrap">
+                <div class="request-item">
+                    <strong>Количество лотов:</strong>
+                    <span id="lots_number">{{ lot_amount }}</span>
+                </div>
+                <div class="request-item">
+                    <strong>Объем 1 лота:</strong>
+                    <span id="lot_amount">{{ lot_size }}т.</span>
+                </div>
+                <div class="request-item">
+                    <strong>Стартовая цена за тонну(с НДС):</strong>
+                    <span id="lot_price">{{ start_price_per_tone }} руб.</span>
+                </div>
+                <div class="request-item">
+                    <strong>Текущая цена за тонну(с НДС):</strong>
+                    <span id="current_lot_price">{{ middle_price_per_tone }} руб.</span>
+                </div>
+                {% if perms.authentication.can_view_all_data or request.user.id == seller_id %}
+                    <div class="request-item">
+                        <strong>Стоп цена за тонну(с НДС):</strong>
+                        <span id="stop_lot_price">{{ stop_price_per_tone }} руб.</span>
+                    </div>
+                {% endif %}
+                <div class="request-item">
+                    <strong>Способ оплаты:</strong>
+                    <span>{{ payment_term }}</span>
+                </div>
+                <div class="request-item">
+                    <strong>Шаг торгов:</strong>
+                    <span id="lot_step">{{ step }} руб.</span>
+                </div>
+                <div class="request-item">
+                    <strong>Время фиксации сделки:</strong>
+                    <span id="fix_time">{{ fixation_duration }} сек.</span>
+                </div>
+            </div>
+            {% if not perms.authentication.can_view_all_data and request.user.id != seller_id %}
+                <button type="button" name="button" class="buy-btn" id="buyer-btn">Купить</button>
+                <div class="large-form">
+                    <h2>Оформление покупки</h2>
+                    <form class="add_lots"> {% csrf_token %}
+                        <div class="input-div" id="lots_count">
+                            <span>Количество лотов</span>
+                            <input type="text" placeholder="0" class="lot_amount_input first_amount">
+                        </div>
+                        <div class="table_min_price input-div">
+                            <span>Цена за тонну (руб)</span>
+                            <input type="text" name="" value="" class="min_price first_price">
+                        </div>
+                        <div id="table_amount">
+                            <span>Общий объем: </span>
+                            <span>0</span>
+                        </div>
+                        <div id="table_price">
+                            <span>Стоимость: </span>
+                            <span>0</span>
+                        </div>
+                        <input type="submit" name="" value="Добавить">
+                    </form>
+                </div>
+            {% endif %}
+        </div>
+        <div class="table-wrap">
+            <div class="auction-btns">
+              <span class="timer">
+                Осталось <i>{{ end_bidding }}</i>
+              </span>
+                <div class="btn-wrap">
+                    <div class="large">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="medium">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="small">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+            <table class="all_bids_table">
+                <caption>Все ставки</caption>
+                <tr>
+                    <td>Время</td>
+                    <td>Лоты, шт.</td>
+                    <td>Объем, т.</td>
+                    <td>Цена за тонну, руб.</td>
+                    <td>Общая цена, руб.</td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="hover" id="buy_hover"></div>
+    <div class="form-td">
+        <h2>Оформление покупки</h2>
+        <form class="add_lots"> {% csrf_token %}
+            <div class="input-div" id="lots_count">
+                <span>Колличество лотов</span>
+                <input type="text" placeholder="0" class="lot_amount_input second_amount">
+            </div>
+            <div class="table_min_price input-div">
+                <span>Цена за тонну (руб)</span>
+                <input type="text" name="" value="" class="min_price second_price">
+            </div>
+            <div id="table_amount">
+                <span>Общий объем: </span>
+                <span>0</span>
+            </div>
+            <div id="table_price">
+                <span>Стоимость: </span>
+                <span>0</span>
+            </div>
+            <input type="submit" name="" value="Добавить">
+        </form>
+    </div>
+    <!-- <div class="result-block">
+      <span>Выигрышь:</span>
+      <span>0 лотов</span>
+      <span>0 тонн</span>
+      <span>0 рублей</span>
+    </div> Строчка результата торгов -->
+
+    <h2 class="active-bids-session for-lots">
+        <span id="free_lots"></span>
+        <span id="fixed_lots">Зарезирвировано лотов 0</span>
+    </h2>
+
+    <div class="table-wrap deals-wrap">
+        <div class="auction-btns">
+            <div class="btn-wrap">
+                <div class="large">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="medium">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="small">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+        <table class="user-bids">
+            {% if perms.authentication.can_view_all_data or request.user.id == seller_id %}
+                <caption>Cделки</caption>
+            {% else %}
+                <caption>Ваши сделки</caption>
+            {% endif %}
+            <tr>
+                <td>Время</td>
+                <td>Лоты, шт.</td>
+                <td>Объем, т.</td>
+                <td>Цена за тонну, руб.</td>
+                <td>Общая цена, руб.</td>
+                {% if perms.authentication.can_view_all_data %}
+                    <td></td>
+                {% endif %}
+            </tr>
+        </table>
+    </div>
+
+    <div class="alert-wrap" id="alert-wrap">
+        <div class="hover"></div>
+        <div class="alert-frame">
+            <h2></h2>
+        </div>
+    </div>
+
+    <div class="alert-wrap" id="accept-wrap">
+        <div class="hover"></div>
+        <div class="alert-frame">
+            <h2>Вы уверены?</h2>
+            <div class="btn-wrap">
+                <button type="button" name="button" id="hide_accept">Нет</button>
+                <button type="button" name="button" id="success_accept">Да</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="{% static 'js/session-files/auctions/bids-controller.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/session-files/auctions/deals.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/session-files/auctions/biddings.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/session-files/auctions/websockets_session.js' %}"></script>
+
+
+{% endblock content %}
